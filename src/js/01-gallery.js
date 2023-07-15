@@ -33,5 +33,4 @@ const liElement = document.querySelectorAll('.gallery, li');
 
 liElement.forEach(item => {
   item.style.listStyleType = 'none';
-  console.log();
 });
