@@ -5,6 +5,11 @@ const FEEDBACK = 'feedback-form-state';
 
 formEl.addEventListener('input', LoDashStatic(checkForm, 500));
 formEl.addEventListener('submit', doSubmit);
+// document.addEventListener('click', test);
+
+// function test() {
+//   console.log(infoEl);
+// }
 
 let infoEl = {
   email: '',
@@ -19,6 +24,9 @@ function isInfoInLocalStorage() {
     const parsedFeedback = JSON.parse(savedFeedback);
     formEl.email.value = parsedFeedback.email;
     formEl.message.value = parsedFeedback.message;
+  } else {
+    formEl.email.value = '';
+    formEl.message.value = '';
   }
 }
 
@@ -35,14 +43,22 @@ function checkForm(event) {
 function doSubmit(event) {
   event.preventDefault();
 
-  const savedFeedback = localStorage.getItem(FEEDBACK);
-  const parsedFeedback = JSON.parse(savedFeedback);
-  console.log(parsedFeedback);
-  backToOrigin();
+  try {
+    const savedFeedback = localStorage.getItem(FEEDBACK);
+    const parsedFeedback = JSON.parse(savedFeedback);
+    if (parsedFeedback.email === '' || parsedFeedback.message === '') {
+      return alert('Please, write in both fields');
+    } else {
+      console.log(parsedFeedback);
+      backToOrigin();
+    }
+  } catch {}
 }
 
 function backToOrigin() {
   formEl.email.value = '';
   formEl.message.value = '';
+  infoEl.email = '';
+  infoEl.message = '';
   localStorage.removeItem(FEEDBACK);
 }
