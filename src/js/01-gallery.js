@@ -28,9 +28,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-
-const liElement = document.querySelectorAll('.gallery, li');
-
-liElement.forEach(item => {
-  item.style.listStyleType = 'none';
-});

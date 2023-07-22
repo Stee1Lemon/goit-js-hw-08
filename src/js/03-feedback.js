@@ -5,25 +5,22 @@ const FEEDBACK = 'feedback-form-state';
 
 formEl.addEventListener('input', LoDashStatic(checkForm, 500));
 formEl.addEventListener('submit', doSubmit);
-// document.addEventListener('click', test);
-
-// function test() {
-//   console.log(infoEl);
-// }
 
 let infoEl = {
   email: '',
   message: '',
 };
 
-isInfoInLocalStorage();
+updateFormFields();
 
-function isInfoInLocalStorage() {
+function updateFormFields() {
   if (localStorage.getItem(FEEDBACK) !== null) {
     const savedFeedback = localStorage.getItem(FEEDBACK);
     const parsedFeedback = JSON.parse(savedFeedback);
     formEl.email.value = parsedFeedback.email;
     formEl.message.value = parsedFeedback.message;
+    infoEl.email = parsedFeedback.email;
+    infoEl.message = parsedFeedback.message;
   } else {
     formEl.email.value = '';
     formEl.message.value = '';
@@ -43,16 +40,14 @@ function checkForm(event) {
 function doSubmit(event) {
   event.preventDefault();
 
-  try {
-    const savedFeedback = localStorage.getItem(FEEDBACK);
-    const parsedFeedback = JSON.parse(savedFeedback);
-    if (parsedFeedback.email === '' || parsedFeedback.message === '') {
-      return alert('Please, write in both fields');
-    } else {
-      console.log(parsedFeedback);
-      backToOrigin();
-    }
-  } catch {}
+  const savedFeedback = localStorage.getItem(FEEDBACK);
+  const parsedFeedback = JSON.parse(savedFeedback);
+  if (parsedFeedback.email === '' || parsedFeedback.message === '') {
+    return alert('Please, write in both fields');
+  } else {
+    console.log(parsedFeedback);
+    backToOrigin();
+  }
 }
 
 function backToOrigin() {
